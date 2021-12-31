@@ -16,7 +16,10 @@
             <li>Afficher une string : {{ firstName }}</li>
             <li>Pour un nombre, c'est pareil ! {{ yearsOld }} ans</li>
             <li>Pour récupérer la propriété d'un objet: {{ myObject.property }}</li>
-            <li>Pour faire une multiplication: {{ price * units }}</li>
+            <li>Pour faire une multiplication: {{ totalPrice }}</li>
+            <li>Age: {{ yearsOld }}</li>
+            <li>Dépenses du mois: {{ sumExpenses }} </li>
+            <li>Reste sur le compte: {{ account - sumExpenses }}</li>
         </ul>
     </div>
 
@@ -26,12 +29,30 @@
         el: '#app',
         data: {
             firstName: 'John Doe',
-            yearsOld: 20,
+            yearBirth: 1983,
+            yearCurrent: 2022,
             myObject: {
                 property: 'Je suis la propriété d\'un objet',
             },
             price: 30,
-            units: 3
+            units: 3,
+            expenses: [10.3, 40, 140, 43.5, 12.98],
+            account: 854
+        },
+        computed: {
+            totalPrice(){
+                return this.price + this.units
+            },
+            yearsOld(){
+                return this.yearCurrent - this.yearBirth 
+            },
+            /* ES6 REDUCER, VOIR https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce */
+            sumExpenses(){
+                let sum = this.expenses.reduce((accumulator, value) => {
+                    return accumulator + value;
+                })
+                return sum;
+            }
         }
       })
     </script>
