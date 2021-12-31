@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon application Vue</title>
+    <title>Exercice: commander au restaurant</title>
 </head>
 <body>
 
+    <!-- Modifiez le code HTML ou JS pour afficher le résultat en commentaire -->
     <div id="app">
-        <h1>Application Vue.js</h1>
+        <h1>Restaurant "Au Bon Burger"</h1>
 
-        <h2>Afficher des variables</h2>
+        <h2>Votre sélection ({{ firstName }} {{ lastName }}) #{{ orderNumber }}</h2> <!-- Votre sélection (John Doe) #33442 -->
+
         <ul>
-            <li>Afficher une string : {{ firstName }}</li>
-            <li>Pour un nombre, c'est pareil ! {{ yearsOld }} ans</li>
-            <li>Pour récupérer la propriété d'un objet: {{ myObject.property }}</li>
-            <li>Pour faire une multiplication: {{ price * units }}</li>
+            <li>{{ simpleBurgerUnits }} SimpleBurgers, à {{ simpleBurgerUnitPrice }}€ unité </li> <!-- 2 "Simple Burgers", à 13,5€ unité-->
+            <li>{{ veganBurgerUnits }} SimpleBurgers, à {{ veganBurgerUnitPrice }}€ unité </li> <!-- 3 "Vegan Burgers", à 10,5€ unité-->
+            <li>{{ ranchBurgerUnits }} ? , à {{ veganBurgerUnitPrice }}€ unité </li> <!-- 1 "Ranch Burger", à 16,5€ unité-->
+            <!-- • Vous n'avez pas choisi de boisson -->
+        </ul>
+
+        <h3>Résumé</h3>
+        <ul>
+            <!-- • Simple Burgers : 27€ -->
+            <!-- • Vegan Burgers : 31,5€ -->
+            <!-- • Ranch Burger : 16,5€ -->
+            <!-- • Pour un total de 75€ -->
         </ul>
     </div>
 
@@ -25,13 +35,8 @@
       const app = new Vue({
         el: '#app',
         data: {
-            firstName: 'John Doe',
-            yearsOld: 20,
-            myObject: {
-                property: 'Je suis la propriété d\'un objet',
-            },
-            price: 30,
-            units: 3
+            /* AJOUTER ICI LES VARIABLES */
+            drinks: 0
         }
       })
     </script>
