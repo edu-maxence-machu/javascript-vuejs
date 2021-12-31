@@ -9,51 +9,22 @@
 <body>
 
     <div id="app">
-        <h1>Mon compte</h1>
+        <h1>Créer un compte en quelques clics</h1>
 
-        <!-- V-IF ET CONDITIONS -->
-        <div v-if="typeof user !== 'undefined'">
-            <h2>Bienvenue {{ user.name }} <span v-show="user.isAdmin === true">[ADMIN]</span></h2>
+        <h2>Encore {{ totalSteps - doneSteps }} étape<span v-if="totalSteps - doneSteps !== 1">s</span> sur {{ totalSteps }}</h2>
 
-            <button @click="user.isAdmin = !user.isAdmin">
-                <span v-if="user.isAdmin === false">Devenir admin</span>
-                <span v-else="user.isAdmin === true">Quitter le job d'admin</span>
-            </button>
-        </div>
+        <form v-on:submit="submitForm">
+            <div class="form-control">
+                <label for="firstname">Prénom</label>
+                <input id="firstname" type="text" v-model="user.firstname" placeholder="John">
+            </div>
 
-        <div v-else> 
-            <button href="/login">Se connecter</a>
-        </div>
+            <button type="submit">C'est parti !</button>
 
+            <p v-if="globalError !== ''" style="color: red">{{ globalError }}</p>
+        </form>
 
-        <!-- V-FOR ET BOUCLES -->
-        <div>
-            <h3>Mon panier</h3>
-
-            <ul>
-                <li v-for="el in panier"> 
-                    <a :href="el.link">
-                        {{ el.unit }} x {{ el.name }} : {{ el.unit * el.price }} €
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-
-        <!-- V-ON et événements -->
-        <div>
-            <h3>Ma couleur favorite est le <span :style="colorStyle">{{ favoriteColor }}</span> <button v-on:click="changeColor">Modifier</button></h3>
-        </div>
-
-        <!-- V-MODEL -->
-        <div>
-            <label for="birthYear">Année de naissance :</label>
-            <input id="birthYear" type="number" v-model="birthYear" placeholder="1990" min="1900" max="2022"/>
-
-            <p v-if="birthYear">Tu as {{ 2022 - birthYear }} ans</p>
-        </div>
-
-        
+         <!-- TODO: Continuez ici l'implémentation du formulaire -->
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -61,31 +32,42 @@
       const app = new Vue({
         el: '#app',
         data: {
-            user: {
-                name: 'John Doe',
-                isAdmin: true // OR user
+            user : {
+                firstname: '',
+                lastname: '',
+                birthDate: null,
+                addrLineOne: '',
+                addrLineTwo: '',
+                addrPostal: null,
+                addrCity: '',
+                addrCountry: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
             },
-            panier : [
-                { name: 'Jeu XBOX SX', price: 70, unit: 1, link: 'https://mywebsite/products/xbox'},
-                { name: 'Sneaker', price: 30, unit: 1, link: 'https://mywebsite/products/basket'},
-                { name: 'T-Shirt', price: 20, unit: 3, link: 'https://mywebsite/products/tshort'},
-            ],
-            favoriteColor: 'green',
-            birthYear: null
+            globalError: ''
         },
         computed: {
-            colorStyle(){
-                return `color: ${this.favoriteColor}` 
+            totalSteps(){
+                return Object.keys(this.user).length
+            },
+            doneSteps(){
+                return Object.keys(this.user).filter((el) => {
+                    return (this.user[el] !== '' && this.user[el] !== null)
+                }).length
             }
         },
         methods: {
-            changeColor(){
-                if(this.favoriteColor === 'green'){
-                    this.favoriteColor = 'blue';                    
-                } else {
-                    this.favoriteColor = 'green';
+            submitForm(e){
+                e.preventDefault();
+                
+                if(this.totalSteps - this.doneSteps !== 0){
+                    this.globalError = 'Ooops tout n\'est pas rempli';
+                    return;
                 }
 
+                console.log('Tout est rempli !'); 
+                // TODO: Effacer le formulaire et afficher "Bonjour {{ user.firstname }}"
             }
         }
       })
