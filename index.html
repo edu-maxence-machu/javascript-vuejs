@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon application Vue</title>
+</head>
+<body>
+
+    <div id="app">
+        <h1>Application Vue.js</h1>
+
+        <h2>Afficher des variables</h2>
+        <ul>
+            <li>Afficher une string : {{ firstName }}</li>
+            <li>Pour un nombre, c'est pareil ! {{ yearsOld }} ans</li>
+            <li>Pour récupérer la propriété d'un objet: {{ myObject.property }}</li>
+            <li>Pour faire une multiplication: {{ price * units }}</li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'John Doe',
+            yearsOld: 20,
+            myObject: {
+                property: 'Je suis la propriété d\'un objet',
+            },
+            price: 30,
+            units: 3
+        }
+      })
+    </script>
+</body>
+</html>
