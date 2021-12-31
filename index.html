@@ -9,18 +9,51 @@
 <body>
 
     <div id="app">
-        <h1>Application Vue.js</h1>
+        <h1>Mon compte</h1>
 
-        <h2>Afficher des variables</h2>
-        <ul>
-            <li>Afficher une string : {{ firstName }}</li>
-            <li>Pour un nombre, c'est pareil ! {{ yearsOld }} ans</li>
-            <li>Pour récupérer la propriété d'un objet: {{ myObject.property }}</li>
-            <li>Pour faire une multiplication: {{ totalPrice }}</li>
-            <li>Age: {{ yearsOld }}</li>
-            <li>Dépenses du mois: {{ sumExpenses }} </li>
-            <li>Reste sur le compte: {{ account - sumExpenses }}</li>
-        </ul>
+        <!-- V-IF ET CONDITIONS -->
+        <div v-if="typeof user !== 'undefined'">
+            <h2>Bienvenue {{ user.name }} <span v-show="user.isAdmin === true">[ADMIN]</span></h2>
+
+            <button @click="user.isAdmin = !user.isAdmin">
+                <span v-if="user.isAdmin === false">Devenir admin</span>
+                <span v-else="user.isAdmin === true">Quitter le job d'admin</span>
+            </button>
+        </div>
+
+        <div v-else> 
+            <button href="/login">Se connecter</a>
+        </div>
+
+
+        <!-- V-FOR ET BOUCLES -->
+        <div>
+            <h3>Mon panier</h3>
+
+            <ul>
+                <li v-for="el in panier"> 
+                    <a :href="el.link">
+                        {{ el.unit }} x {{ el.name }} : {{ el.unit * el.price }} €
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- V-ON et événements -->
+        <div>
+            <h3>Ma couleur favorite est le <span :style="colorStyle">{{ favoriteColor }}</span> <button v-on:click="changeColor">Modifier</button></h3>
+        </div>
+
+        <!-- V-MODEL -->
+        <div>
+            <label for="birthYear">Année de naissance :</label>
+            <input id="birthYear" type="number" v-model="birthYear" placeholder="1990" min="1900" max="2022"/>
+
+            <p v-if="birthYear">Tu as {{ 2022 - birthYear }} ans</p>
+        </div>
+
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -28,30 +61,31 @@
       const app = new Vue({
         el: '#app',
         data: {
-            firstName: 'John Doe',
-            yearBirth: 1983,
-            yearCurrent: 2022,
-            myObject: {
-                property: 'Je suis la propriété d\'un objet',
+            user: {
+                name: 'John Doe',
+                isAdmin: true // OR user
             },
-            price: 30,
-            units: 3,
-            expenses: [10.3, 40, 140, 43.5, 12.98],
-            account: 854
+            panier : [
+                { name: 'Jeu XBOX SX', price: 70, unit: 1, link: 'https://mywebsite/products/xbox'},
+                { name: 'Sneaker', price: 30, unit: 1, link: 'https://mywebsite/products/basket'},
+                { name: 'T-Shirt', price: 20, unit: 3, link: 'https://mywebsite/products/tshort'},
+            ],
+            favoriteColor: 'green',
+            birthYear: null
         },
         computed: {
-            totalPrice(){
-                return this.price + this.units
-            },
-            yearsOld(){
-                return this.yearCurrent - this.yearBirth 
-            },
-            /* ES6 REDUCER, VOIR https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce */
-            sumExpenses(){
-                let sum = this.expenses.reduce((accumulator, value) => {
-                    return accumulator + value;
-                })
-                return sum;
+            colorStyle(){
+                return `color: ${this.favoriteColor}` 
+            }
+        },
+        methods: {
+            changeColor(){
+                if(this.favoriteColor === 'green'){
+                    this.favoriteColor = 'blue';                    
+                } else {
+                    this.favoriteColor = 'green';
+                }
+
             }
         }
       })
