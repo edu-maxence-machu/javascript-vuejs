@@ -11,8 +11,9 @@ export default {
 
 <template>
     <div>
-        <MenuLink url="/" active="true" text="Home"/>
+        <MenuLink url="/" active="false" text="Home"/>
         <MenuLink url="/cv" active="true" text="CV"/>
+        <MenuLink url="/contact" active="true" text="Contactez-moi"/>
     </div>
 </template>
 

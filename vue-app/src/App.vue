@@ -1,16 +1,30 @@
 <script>
 import Menu from './components/Menu.vue'
+import PageContent from './components/PageContent.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    Menu
+    Menu,
+    PageContent,
+    Footer
   }
 }
 </script>
 
 <template>
+<div>
   <Menu/>
+
+  <PageContent text="Bonjour je m'appelle Maxence." numero="1"/>
+  <PageContent text="Je recherche une alternance" numero="2"/>
+  <PageContent text="dans le domaine du marketing" numero="3"/>
+  <PageContent text="contact@maxence.fr" numero="4"/>
+
+  <Footer/>
+</div>
+  
 </template>
 
 <style lang="scss">

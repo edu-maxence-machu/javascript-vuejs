@@ -1,5 +1,5 @@
 <template>
-  <a :href="url" :class="active ? 'active' : ''">
+  <a :href="url" :class="active === 'true' ? 'active' : ''">
       {{ text }} {{ exemplePropsComputed }}
   </a>
 </template>
@@ -11,7 +11,7 @@ export default {
     computed: {
         exemplePropsComputed(){
             return '(' + this.url + ')';
-        }
+        },
     }
 }
 </script>
@@ -20,6 +20,7 @@ export default {
     a {
         &.active {
           font-weight: bold;
+          color: green;
         }
     }
 </style>
